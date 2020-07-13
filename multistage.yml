@@ -1,0 +1,101 @@
+
+name: $(SourceBranchName)
+pool:
+  vmImage: 'Ubuntu-16.04'
+
+trigger:
+  branches:
+    include:
+    - master
+    - develop
+pr: none
+
+stages:
+- stage: Build
+  displayName: Build
+
+  jobs:
+  - job: GetVersion
+    displayName: Get Version
+    variables:
+      repo: $(Build.Repository.Name)
+    steps:
+    - bash: |
+        VERSIONT=$(jq -r .version package.json)
+        echo "##vso[task.setvariable variable=version;isOutput=true]$VERSIONT"
+        REPOT=$(echo ${repo##*/})
+        echo "##vso[task.setvariable variable=webApp;isOutput=true]$REPOT"
+      name: App 
+  - job: Build
+    displayName: Build 
+    dependsOn: GetVersion
+    variables:
+      appVersion: $[ dependencies.GetVersion.outputs['App.version'] ]
+      buildIncrement: $[counter(variables['appVersion'], 0)] # create a counter that is used to increment build run for same app version
+      buildRevision: "r$(buildIncrement)"
+      buildVersion: "$(appVersion)"
+
+    steps:
+    - bash: echo "##vso[build.updatebuildnumber]$(buildVersion)" # Update build number in Pipeline UI
+      displayName: Update build number
+
+    - bash: echo "##vso[build.updatebuildnumber]$(buildVersion)-$(buildRevision)" # Update build number in Pipeline UI
+      displayName: Update build revison
+      condition: and(succeeded(), in(variables['Build.SourceBranch'], 'refs/heads/master'))
+
+- stage: dev
+  displayName: dev
+  dependsOn: Build
+  condition: and(succeeded(), in(variables['Build.SourceBranch'], 'refs/heads/develop'))
+  jobs:
+  - job: Integration
+    condition: and(succeeded(), ne(variables['IntegrationTests'], 'false'))
+    displayName: 'Integration Tests'
+
+  - job: Migration
+    displayName: 'Migration $(System.StageName)'
+    dependsOn: Integration
+
+  - deployment: Deploy
+    displayName: 'Deploy $(System.StageName)'
+    dependsOn: 
+    - Migration
+    - Integration
+    condition: and(in(dependencies.Migration.result, 'Succeeded', 'Skipped'), in(dependencies.Integration.result, 'Succeeded', 'Skipped'))
+    environment: QA
+    strategy:                 
+      runOnce: 
+        deploy: 
+          steps:
+          - bash: |
+              echo "Deploy dev"
+
+- stage: staging
+  displayName: staging
+  dependsOn: Build
+  condition: and(succeeded(), in(variables['Build.SourceBranch'], 'refs/heads/master'))
+  jobs:
+  - job: Integration
+    condition: and(succeeded(), ne(variables['IntegrationTests'], 'false'))
+    displayName: 'Integration Tests'
+
+  - job: Migration
+    displayName: 'Migration $(System.StageName)'
+    dependsOn: Integration
+
+  - deployment: Deploy
+    displayName: 'Deploy $(System.StageName)'
+    dependsOn: 
+    - Migration
+    - Integration
+    condition: and(in(dependencies.Migration.result, 'Succeeded', 'Skipped'), in(dependencies.Integration.result, 'Succeeded', 'Skipped'))
+    environment: QA
+    strategy:                 
+      runOnce: 
+        deploy: 
+          steps:
+          - bash: |
+              echo "Deploy Staging"
+
+
+  
