@@ -1,7 +1,7 @@
 jobs:
 - deployment: Deploy
   displayName: 'Deploy '
-  condition: and(Succeeded(),'Skipped())
+  condition: and(Succeeded,Skipped)
   environment: QA
   strategy:                 
     runOnce: 
