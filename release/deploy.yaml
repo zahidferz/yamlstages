@@ -1,9 +1,15 @@
+parameters:
+  name: deps
+  type: object
+  default: 
+  - Integration
+
+
 jobs:
 - deployment: Deploy
   displayName: 'Deploy'
-  dependsOn:
-  - Integration
-  - Migration
+  dependsOn: ${{ parameters.deps }}
+  condition:condition: and(in(dependencies.Integration.result, 'Succeeded', 'Skipped')
   environment: QA
   strategy:                 
     runOnce: 
