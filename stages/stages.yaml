@@ -1,6 +1,6 @@
 parameters:
 - name: migrations
-  default: true
+  default: 'true'
   type: string
 
 stages:
