@@ -1,4 +1,3 @@
 jobs:
 - job: Migration
   displayName: 'Migration '
-  dependsOn: Integration
