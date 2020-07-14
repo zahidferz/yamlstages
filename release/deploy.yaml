@@ -9,8 +9,8 @@ jobs:
 - deployment: Deploy
   displayName: 'Deploy'
   dependsOn: 
-  - Integration
-  - 
+  - ${{ each parameter in parameters.deps }}:
+    - ${{parameter}}
   condition: in(dependencies.Integration.result, 'Succeeded', 'Skipped')
   environment: QA
   strategy:                 
