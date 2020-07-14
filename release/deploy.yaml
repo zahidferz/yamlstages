@@ -9,7 +9,7 @@ jobs:
 - deployment: Deploy
   displayName: 'Deploy'
   dependsOn: ${{ parameters.deps }}
-  condition:condition: and(in(dependencies.Integration.result, 'Succeeded', 'Skipped')
+  condition: and(in(dependencies.Integration.result, 'Succeeded', 'Skipped')
   environment: QA
   strategy:                 
     runOnce: 
