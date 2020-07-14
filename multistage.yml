@@ -17,7 +17,7 @@ stages:
 
 - template: stages/stages.yaml
   parameters:
-    migrations: $[ variables.migrations ]]
+    migrations: $(migrations)
 
 
 
