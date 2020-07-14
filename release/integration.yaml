@@ -7,7 +7,7 @@ jobs:
 - job: Integration
   condition: and(succeeded(), ne(variables['IntegrationTests'], 'false'))
   displayName: 'Integration Tests'
-  step:
+  steps:
   - task: Bash@3
     inputs:
     script: exit 1
