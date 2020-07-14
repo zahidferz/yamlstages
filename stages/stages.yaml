@@ -3,7 +3,6 @@ parameters:
   type: string # data type of the parameter; required
   default: true
 
-
 stages:
 - stage: dev
   displayName: dev
