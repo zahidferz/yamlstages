@@ -1,6 +1,6 @@
 parameters:
 - name: 'migrations'
-  default: 'false'
+  default: 'true'
   type: string
 
 stages:
