@@ -1,10 +1,7 @@
 jobs:
 - deployment: Deploy
   displayName: 'Deploy '
-  dependsOn: 
-  - Integration
-  - Migration
-  condition: and(in(dependencies.Migration.result, 'Succeeded', 'Skipped'), in(dependencies.Integration.result, 'Succeeded', 'Skipped'))
+  condition: and(Succeeded(),'Skipped'())
   environment: QA
   strategy:                 
     runOnce: 
