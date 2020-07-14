@@ -1,0 +1,4 @@
+jobs:
+- job: Integration
+  condition: and(succeeded(), ne(variables['IntegrationTests'], 'false'))
+  displayName: 'Integration Tests'

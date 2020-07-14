@@ -1,0 +1,36 @@
+parameters:
+- name: migrations # name of the parameter; required
+  type: string # data type of the parameter; required
+  default: true
+
+
+stages:
+- stage: dev
+  displayName: dev
+  dependsOn: Build
+  condition: and(succeeded(), in(variables['Build.SourceBranch'], 'refs/heads/develop', 'refs/heads/dev'))
+  jobs:
+  - template: /Dotnet/Release/integration.yaml
+    parameters:
+      migrations: ${{ variables.Migrations }}
+  - ${{ if eq(parameters.migrations, true) }}:
+    - template: /Dotnet/Release/migration.yaml
+  - template: /Dotnet/Release/deploy.yaml
+    parameters: 
+      dependencies:
+        - job : Integration
+
+- stage: staging
+  displayName: staging
+  dependsOn: Build
+  condition: and(succeeded(), in(variables['Build.SourceBranch'], 'refs/heads/master'))
+  jobs:
+  - template: /Dotnet/Release/integration.yaml
+    parameters:
+      migrations: (${{ variables.Migrations }})
+  - ${{ if eq(parameters.migrations, true) }}:
+    - template: /Dotnet/Release/migration.yaml
+  - template: /Dotnet/Release/deploy.yaml
+    parameters:
+      approvals: 'QA'
+

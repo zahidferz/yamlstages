@@ -1,0 +1,14 @@
+jobs:
+- deployment: Deploy
+  displayName: 'Deploy $(System.StageName)'
+  dependsOn: 
+  - Migration
+  - Integration
+  condition: and(in(dependencies.Migration.result, 'Succeeded', 'Skipped'), in(dependencies.Integration.result, 'Succeeded', 'Skipped'))
+  environment: QA
+  strategy:                 
+    runOnce: 
+      deploy: 
+        steps:
+        - bash: |
+            echo "Deploy dev"
