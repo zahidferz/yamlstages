@@ -10,4 +10,4 @@ jobs:
   steps:
   - task: Bash@3
     inputs:
-    script: exit 1
+      script: exit 1
