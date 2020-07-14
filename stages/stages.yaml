@@ -1,7 +1,7 @@
 parameters:
-- name: migrations # name of the parameter; required
-  type: string # data type of the parameter; required
-  default: true
+- name: 'migrations'
+  default: 'true'
+  type: string
 
 stages:
 - stage: dev

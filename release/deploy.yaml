@@ -1,6 +1,6 @@
 jobs:
 - deployment: Deploy
-  displayName: 'Deploy $(System.StageName)'
+  displayName: 'Deploy '
   dependsOn: 
   - Integration
   condition: and(in(dependencies.Migration.result, 'Succeeded', 'Skipped'), in(dependencies.Integration.result, 'Succeeded', 'Skipped'))
