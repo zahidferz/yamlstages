@@ -1,4 +1,4 @@
 jobs:
 - job: Migration
-  displayName: 'Migration $(System.StageName)'
+  displayName: 'Migration '
   dependsOn: Integration
