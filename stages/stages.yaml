@@ -1,7 +1,3 @@
-parameters:
-- name: 'migrations'
-  default: 'true'
-  type: string
 
 stages:
 - stage: dev
@@ -12,7 +8,7 @@ stages:
   - template: /release/integration.yaml
     parameters:
       migrations: ${{ variables.Migrations }}
-  - ${{ if eq(parameters.migrations, 'true') }}:
+  - ${{ if ne(variables[migrations], 'false') }}:
     - template: /release/migration.yaml
   - template: /release/deploy.yaml
     parameters: 
@@ -27,7 +23,7 @@ stages:
   - template: /release/integration.yaml
     parameters:
       migrations: (${{ variables.Migrations }})
-  - ${{ if eq(parameters.migrations, 'true') }}:
+  - ${{ if ne(variables[migrations], 'false') }}:
     - template: /release/migration.yaml
   - template: /release/deploy.yaml
     parameters:
