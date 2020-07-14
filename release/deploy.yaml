@@ -1,6 +1,6 @@
 parameters:
   name: deps
-  type: object
+  type: string
   default: 
   - Integration
 
@@ -8,7 +8,9 @@ parameters:
 jobs:
 - deployment: Deploy
   displayName: 'Deploy'
-  dependsOn: Integration
+  dependsOn: 
+  - Integration
+  - 
   condition: in(dependencies.Integration.result, 'Succeeded', 'Skipped')
   environment: QA
   strategy:                 
