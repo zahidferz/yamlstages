@@ -10,12 +10,12 @@ stages:
   dependsOn: Build
   condition: and(succeeded(), in(variables['Build.SourceBranch'], 'refs/heads/develop', 'refs/heads/dev'))
   jobs:
-  - template: release/integration.yaml
+  - template: /release/integration.yaml
     parameters:
       migrations: ${{ variables.Migrations }}
   - ${{ if eq(parameters.migrations, true) }}:
-    - template: release/migration.yaml
-  - template: release/deploy.yaml
+    - template: /release/migration.yaml
+  - template: /release/deploy.yaml
     parameters: 
       dependencies:
         - job : Integration
@@ -25,12 +25,12 @@ stages:
   dependsOn: Build
   condition: and(succeeded(), in(variables['Build.SourceBranch'], 'refs/heads/master'))
   jobs:
-  - template: release/integration.yaml
+  - template: /release/integration.yaml
     parameters:
       migrations: (${{ variables.Migrations }})
   - ${{ if eq(parameters.migrations, true) }}:
-    - template: release/migration.yaml
-  - template: release/deploy.yaml
+    - template: /release/migration.yaml
+  - template: /release/deploy.yaml
     parameters:
       approvals: 'QA'
 
