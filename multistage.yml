@@ -15,7 +15,7 @@ stages:
   parameters: 
     docker: "$(docker)"
 
-- template: stages/release-stage.yaml
+- template: stages/release.yaml
   parameters:
     migrations: ${{ variables.Migrations }}
 
