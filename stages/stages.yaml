@@ -6,9 +6,7 @@ stages:
   condition: and(succeeded(), in(variables['Build.SourceBranch'], 'refs/heads/develop', 'refs/heads/dev'))
   jobs:
   - template: /release/integration.yaml
-    parameters:
-      migrations: ${{ variables.Migrations }}
-  - ${{ if ne(variables[migrations], 'false') }}:
+  - ${{ if ne(variables['migrations'], 'false') }}:
     - template: /release/migration.yaml
   - template: /release/deploy.yaml
     parameters: 
@@ -21,9 +19,7 @@ stages:
   condition: and(succeeded(), in(variables['Build.SourceBranch'], 'refs/heads/master'))
   jobs:
   - template: /release/integration.yaml
-    parameters:
-      migrations: (${{ variables.Migrations }})
-  - ${{ if ne(variables[migrations], 'false') }}:
+  - ${{ if ne(variables['migrations'], 'false') }}:
     - template: /release/migration.yaml
   - template: /release/deploy.yaml
     parameters:
