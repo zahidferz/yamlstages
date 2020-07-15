@@ -26,3 +26,11 @@ jobs:
   - bash: echo "##vso[build.updatebuildnumber]$(buildVersion)-$(buildRevision)" # Update build number in Pipeline UI
     displayName: Update build revison
     condition: and(succeeded(), in(variables['Build.SourceBranch'], 'refs/heads/master'))
+
+- job: Build 
+displayName: Build 
+steps:
+  - bash: echo "step 1" 
+    displayName: step1
+  - bash: echo "step 2" 
+    displayName: step2
