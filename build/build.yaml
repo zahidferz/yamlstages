@@ -1,5 +1,5 @@
 parameters:
-  buildname: ''
+  buildname: 'api'
 
 jobs:
 - job: "Build${{ parameters.buildname }}"
