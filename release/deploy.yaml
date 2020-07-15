@@ -1,6 +1,6 @@
 parameters:
   name: deps
-  type: string
+  type: object
   default: 
   - Integration
 
