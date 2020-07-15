@@ -27,10 +27,10 @@ jobs:
     displayName: Update build revison
     condition: and(succeeded(), in(variables['Build.SourceBranch'], 'refs/heads/master'))
 
-- job: Build 
-displayName: Build 
-steps:
-  - bash: echo "step 1" 
-    displayName: step1
-  - bash: echo "step 2" 
-    displayName: step2
+#- job: Build 
+#displayName: Build 
+#steps:
+#  - bash: echo "step 1" 
+#    displayName: step1
+#  - bash: echo "step 2" 
+#    displayName: step2
