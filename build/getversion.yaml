@@ -1,3 +1,5 @@
+
+
 jobs:
 - job: GetVersion
   displayName: Get Version
