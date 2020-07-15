@@ -10,7 +10,7 @@ stages:
   condition: and(succeeded(), in(variables['Build.SourceBranch'], 'refs/heads/develop', 'refs/heads/dev'))
   jobs:
   - template: /release/integration.yaml
-  - ${{ if not(eq(variables.['migrations'], 'false')) }}:
+  - ${{ if not(eq(variables['migrations'], 'false')) }}:
     - template: /release/migration.yaml
   - template: /release/deploy.yaml
     parameters: 
@@ -23,7 +23,7 @@ stages:
   condition: and(succeeded(), in(variables['Build.SourceBranch'], 'refs/heads/master'))
   jobs:
   - template: /release/integration.yaml
-  - ${{ if not(eq(variables.['migrations'], 'false')) }}:
+  - ${{ if not(eq(variables['migrations'], 'false')) }}:
     - template: /release/migration.yaml
   - template: /release/deploy.yaml
     parameters:
