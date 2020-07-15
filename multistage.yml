@@ -11,10 +11,10 @@ trigger:
 pr: none
 
 stages:
-- template: build/build.yaml
+- template: stages/build.yaml
   parameters: 
     docker: "$(docker)"
-    
+
 
 - template: stages/stages.yaml
   parameters:

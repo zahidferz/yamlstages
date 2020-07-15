@@ -4,4 +4,4 @@ stages:
 
   jobs:
   - template: /build/getversion.yaml
-# - template: /build/build.yaml
+  - template: /build/build.yaml
