@@ -2,4 +2,4 @@ jobs:
 - job: Migration
   displayName: 'Migration '
   dependsOn: Integration
-  condition: and(in(dependencies.Integration.result, 'Succeeded', 'Skipped'))
+  condition: in(dependencies.Integration.result, 'Succeeded', 'Skipped')
