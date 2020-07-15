@@ -1,5 +1,5 @@
 parameters:
-  deps: []
+  deps: [Integration]
 
 
 jobs:
