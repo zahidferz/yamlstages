@@ -1,5 +1,5 @@
 jobs:
-- job: 'Build '
+- job: Build 
   displayName: Build 
   steps:
   - bash: echo "step 1" 
