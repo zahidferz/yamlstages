@@ -15,6 +15,10 @@ stages:
   parameters: 
     docker: "$(docker)"
 
+- template: build/build.yaml
+  parameters: 
+    docker: "$(docker)"
+
 - template: stages/stages.yaml
   parameters:
     migrations: true
