@@ -8,12 +8,6 @@ jobs:
   dependsOn: 
   - ${{ each dep in parameters.deps }}:
     - ${{ dep }}
-  condition: |
-    and
-    (
-      ${{ each dep in parameters.deps }}:
-        in(dependencies.${{ dep }}.result, 'Succeeded', 'Skipped')
-    )
   environment: QA
   strategy:                 
     runOnce: 
