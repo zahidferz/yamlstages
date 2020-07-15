@@ -8,7 +8,12 @@ jobs:
   dependsOn: 
   - ${{ each dep in parameters.deps }}:
     - ${{ dep }}
-  condition: and(in(dependencies.Migration.result, 'Succeeded', 'Skipped'), in(dependencies.Integration.result, 'Succeeded', 'Skipped'))
+  condition: 
+  - ${{ each dep in parameters.deps }}:
+    and
+    (
+      in(dependencies.${{ dep }}.result, 'Succeeded', 'Skipped')
+    )
   environment: QA
   strategy:                 
     runOnce: 
