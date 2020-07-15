@@ -1,8 +1,8 @@
 
 
 jobs:
-- job: Build 
-  displayName: Build 
+- job: Build ${{ variables.buildname }}
+  displayName: Build ${{ variables.buildname }}
   steps:
     - bash: echo "step 1" 
       displayName: step1
