@@ -1,0 +1,11 @@
+parameters:
+  buildname: 'api'
+
+jobs:
+- job: "Build"
+  displayName: Build 
+  steps:
+    - bash: echo "step 1" 
+      displayName: step1
+    - bash: echo "step 2" 
+      displayName: step2
