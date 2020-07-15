@@ -1,8 +1,8 @@
 jobs:
 - job: Build 
-displayName: Build 
-steps:
-  - bash: echo "step 1" 
-    displayName: step1
-  - bash: echo "step 2" 
-    displayName: step2
+  displayName: Build 
+  steps:
+    - bash: echo "step 1" 
+      displayName: step1
+    - bash: echo "step 2" 
+      displayName: step2
