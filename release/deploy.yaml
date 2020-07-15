@@ -6,7 +6,7 @@ jobs:
 - deployment: Deploy
   displayName: 'Deploy'
   dependsOn: 
-  - ${{ each dep in parameters.deps }}
+  - ${{ each dep in parameters.deps }}:
     - ${{ dep }}
   condition: in(dependencies.Integration.result, 'Succeeded', 'Skipped')
   environment: QA
