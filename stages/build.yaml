@@ -31,20 +31,3 @@ stages:
     - bash: echo "##vso[build.updatebuildnumber]$(buildVersion)-$(buildRevision)" # Update build number in Pipeline UI
       displayName: Update build revison
       condition: and(succeeded(), in(variables['Build.SourceBranch'], 'refs/heads/master'))
-
-  - job: Build
-    displayName: Build 
-    dependsOn: GetVersion
-    variables:
-      appVersion: $[ dependencies.GetVersion.outputs['App.version'] ]
-      buildIncrement: $[counter(variables['appVersion'], 0)] # create a counter that is used to increment build run for same app version
-      buildRevision: "r$(buildIncrement)"
-      buildVersion: "$(appVersion)"
-    
-    steps:
-    - bash: echo "##vso[build.updatebuildnumber]$(buildVersion)" # Update build number in Pipeline UI
-      displayName: Update build number
-
-    - bash: echo "##vso[build.updatebuildnumber]$(buildVersion)-$(buildRevision)" # Update build number in Pipeline UI
-      displayName: Update build revison
-      condition: and(succeeded(), in(variables['Build.SourceBranch'], 'refs/heads/master'))
