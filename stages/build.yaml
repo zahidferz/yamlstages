@@ -6,3 +6,5 @@ stages:
   - template: /build/getversion.yaml
   - template: /build/build.yaml
   - template: /build/buildfunction.yaml
+    parameters:
+      buildname: ${{ variables.buildname }}
