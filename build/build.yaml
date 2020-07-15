@@ -1,3 +1,5 @@
+
+
 jobs:
-- job: Build 
-  displayName: Build 
+- job: GetVersion
+  displayName: Get Version
