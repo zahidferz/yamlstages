@@ -2,8 +2,8 @@ parameters:
   buildname: 'api'
 
 jobs:
-- job: "Build ${{ parameters.buildname }}"
-  displayName: Build ${{ parameters.buildname }}
+- job: "Build${{ variables.buildname }}"
+  displayName: Build ${{ variables.buildname }}
   steps:
     - bash: echo "step 1" 
       displayName: step1
