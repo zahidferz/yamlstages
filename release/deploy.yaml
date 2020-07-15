@@ -1,16 +1,13 @@
 parameters:
-  name: deps
-  type: object
-  default: 
-  - Integration
+  deps: []
 
 
 jobs:
 - deployment: Deploy
   displayName: 'Deploy'
   dependsOn: 
-  - ${{ each parameter in parameters.deps }}:
-    - ${{parameter}}
+  - ${{ each dep in parameters.deps }}
+    - ${{ dep }}
   condition: in(dependencies.Integration.result, 'Succeeded', 'Skipped')
   environment: QA
   strategy:                 

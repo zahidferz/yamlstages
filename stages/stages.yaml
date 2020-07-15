@@ -14,8 +14,8 @@ stages:
     - template: /release/migration.yaml
   - template: /release/deploy.yaml
     parameters: 
-      dependencies:
-        - job : Integration
+      deps: [Integration, Migration]
+
 
 - stage: staging
   displayName: staging
