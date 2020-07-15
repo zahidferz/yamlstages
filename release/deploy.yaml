@@ -1,5 +1,5 @@
 parameters:
-  deps: [Integration]
+  deps: [Integration, Migration]
 
 
 jobs:
@@ -8,7 +8,9 @@ jobs:
   dependsOn: 
   - ${{ each dep in parameters.deps }}:
     - ${{ dep }}
-  condition: in(dependencies.Integration.result, 'Succeeded', 'Skipped')
+  condition: 
+  - ${{ each dep in parameters.deps }}:
+    - in(dependencies.${{ dep }}.result, 'Succeeded', 'Skipped')
   environment: QA
   strategy:                 
     runOnce: 
